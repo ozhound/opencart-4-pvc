@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 {{ header }}{{ column_left }}
 <div id="content">
   <div class="page-header">
@@ -170,3 +171,177 @@
   </div>
 </div>
 {{ footer }}
+=======
+{{ header }}{{ column_left }}
+<div id="content">
+  <div class="page-header">
+    <div class="container-fluid">
+      <div class="float-end">
+        <button type="submit" form="form-payment" data-bs-toggle="tooltip" title="{{ button_save }}" class="btn btn-primary"><i class="fa-solid fa-save"></i></button>
+        <a href="{{ cancel }}" data-bs-toggle="tooltip" title="{{ button_cancel }}" class="btn btn-light"><i class="fa-solid fa-reply"></i></a></div>
+      <h1>{{ heading_title }}</h1>
+      <ul class="breadcrumb">
+        {% for breadcrumb in breadcrumbs %}
+        <li class="breadcrumb-item"><a href="{{ breadcrumb.href }}">{{ breadcrumb.text }}</a></li>
+        {% endfor %}
+      </ul>
+    </div>
+  </div>
+
+  <div class="container-fluid">
+    <div class="card">
+      <div class="card-header"><i class="fa-solid fa-pencil"></i> {{ text_edit }}</div>
+      <div class="card-body">
+        <form action="{{ action }}" method="post" id="form-payment" data-oc-toggle="ajax">
+          <div class="row mb-3 required">
+            <label class="col-sm-2 col-form-label" for="input-vendor" data-bs-toggle="tooltip" title="{{ entry_companyid_help }}">{{ entry_companyid }}</label>
+            <div class="col-sm-10">
+              <input type="text" name="payment_begateway_companyid" value="{{ payment_begateway_companyid }}" placeholder="{{ entry_companyid }}" id="input-vendor" class="form-control" />
+            </div>
+          </div>
+          <div class="row mb-3 required">
+            <label class="col-sm-2 col-form-label" for="input-key" data-bs-toggle="tooltip" title="{{ entry_encyptionkey_help }}">{{ entry_encyptionkey }}</label>
+            <div class="col-sm-10">
+              <input type="text" name="payment_begateway_encyptionkey" value="{{ payment_begateway_encyptionkey }}" placeholder="{{ entry_encyptionkey }}" id="input-key" class="form-control" />
+            </div>
+          </div>
+          <div class="row mb-3 required">
+            <label class="col-sm-2 col-form-label" for="input-publickey" data-bs-toggle="tooltip" title="{{ entry_publickey_help }}">{{ entry_publickey }}</label>
+            <div class="col-sm-10">
+              <textarea name="payment_begateway_publickey" rows="4" placeholder="{{ entry_publickey }}" id="input-publickey" class="form-control" />{{ payment_begateway_publickey }}</textarea>
+            </div>
+          </div>
+          <div class="row mb-3 required">
+            <label class="col-sm-2 col-form-label" for="input-domain-page" data-bs-toggle="tooltip" title="{{ entry_domain_payment_page_help }}">{{ entry_domain_payment_page }}</label>
+            <div class="col-sm-10">
+              <input type="text" name="payment_begateway_domain_payment_page" value="{{ payment_begateway_domain_payment_page }}" placeholder="{{ entry_domain_payment_page }}" id="input-domain-page" class="form-control" />
+            </div>
+          </div>
+          <div class="row mb-3 required">
+            <label class="col-sm-2 col-form-label" for="input-expiry" data-bs-toggle="tooltip" title="{{ entry_expiry_help }}">{{ entry_expiry }}</label>
+            <div class="col-sm-10">
+              <input type="text" name="payment_begateway_expiry" value="{{ payment_begateway_expiry }}" placeholder="{{ entry_expiry }}" id="input-expiry" class="form-control" />
+            </div>
+          </div>
+
+{% for l in languages %}
+          <div class="row mb-3">
+            <label class="col-sm-2 col-form-label" for="input-heading-title-{{ l.code }}" data-bs-toggle="tooltip" title="{{ l.entry_heading_title_help }}">{{ l.entry_heading_title }} <img src="{{l.image}}"></label>
+            <div class="col-sm-10">
+              <input type="text" name="payment_begateway_heading_title_{{ l.code }}" value="{{ l.heading_title }}" placeholder="{{ l.heading_title }}" id="input-heading-title-{{ l.code }}" class="form-control" />
+            </div>
+          </div>
+          <div class="row mb-3">
+            <label class="col-sm-2 col-form-label" for="input-method-title-{{ l.code }}" data-bs-toggle="tooltip" title="{{ l.entry_method_title_help }}">{{ l.entry_method_title }} <img src="{{l.image}}"></label>
+            <div class="col-sm-10">
+              <input type="text" name="payment_begateway_method_title_{{ l.code }}" value="{{ l.method_title }}" placeholder="{{ l.method_title }}" id="input-method-title-{{ l.code }}" class="form-control" />
+            </div>
+          </div>
+{% endfor %}
+
+          <div class="row mb-3">
+            <label class="col-sm-2 col-form-label" for="begateway_payment_type_card">{{ entry_payment_type_card }}</label>
+            <div class="col-sm-10">
+              <div class="form-check form-switch form-switch-lg">
+                <input type="hidden" name="payment_begateway_payment_type[card]" value="0" />
+                <input type='checkbox' name='payment_begateway_payment_type[card]' class="form-check-input" id="begateway_payment_type_card" value='1' {{ payment_begateway_payment_type.card is defined and payment_begateway_payment_type.card == 1 ? 'checked="checked"' : '' }} />
+              </div>
+            </div>
+          </div>
+          <div class="row mb-3">
+            <label class="col-sm-2 col-form-label" for="begateway_payment_type_halva">{{ entry_payment_type_halva }}</label> 
+            <div class="col-sm-10">        
+              <div class="form-check form-switch form-switch-lg">
+                <input type="hidden" name="payment_begateway_payment_type[halva]" value="0" />
+                <input type='checkbox' name='payment_begateway_payment_type[halva]' class="form-check-input" id="begateway_payment_type_halva" value='1' {{ payment_begateway_payment_type.halva is defined and payment_begateway_payment_type.halva == 1 ? 'checked="checked"' : '' }} />
+              </div>
+            </div>
+          </div>   
+          <div class="row mb-3">
+            <label class="col-sm-2 col-form-label" for="begateway_payment_type_erip">{{ entry_payment_type_erip }}</label> 
+            <div class="col-sm-10">
+              <div class="form-check form-switch form-switch-lg">
+                <input type="hidden" name="payment_begateway_payment_type[erip]" value="0" />
+                <input type='checkbox' name='payment_begateway_payment_type[erip]' class="form-check-input" id="begateway_payment_type_erip" value='1' {{ payment_begateway_payment_type.erip is defined and payment_begateway_payment_type.erip == 1 ? 'checked="checked"' : '' }} />
+              </div>
+            </div>
+          </div>
+          <div class="row mb-3">
+            <label class="col-sm-2 col-form-label" for="erip_service_no-key">{{ entry_payment_begateway_erip_service_no }}</label>
+            <div class="col-sm-10">
+              <input type="text" name="payment_begateway_erip_service_no" value="{{ payment_begateway_erip_service_no }}" placeholder="{{ entry_payment_begateway_erip_service_no }}" id="erip_service_no" class="form-control" />
+            </div>
+          </div>
+          <div class="row mb-3">
+            <label class="col-sm-2 col-form-label" for="input-order-status">{{ entry_order_status }}</label>
+            <div class="col-sm-10">
+              <select name="payment_begateway_completed_status_id" id="input-order-status" class="form-select">
+                {% for order_status in order_statuses %}
+                {% if order_status.order_status_id == payment_begateway_completed_status_id %}
+                <option value="{{ order_status.order_status_id }}" selected="selected">{{ order_status.name }}</option>
+                {% else %}
+                <option value="{{ order_status.order_status_id }}">{{ order_status.name }}</option>
+                {% endif %}
+                {% endfor %}
+              </select>
+            </div>
+          </div>
+          <div class="row mb-3">
+            <label class="col-sm-2 col-form-label" for="input-order-failed-status">{{ entry_order_status_failed_text }}</label>
+            <div class="col-sm-10">
+              <select name="payment_begateway_failed_status_id" id="input-order-failed-status" class="form-select">
+                {% for order_status in order_statuses %}
+                {% if order_status.order_status_id == payment_begateway_failed_status_id %}
+                <option value="{{ order_status.order_status_id }}" selected="selected">{{ order_status.name }}</option>
+                {% else %}
+                <option value="{{ order_status.order_status_id }}">{{ order_status.name }}</option>
+                {% endif %}
+                {% endfor %}
+              </select>
+            </div>
+          </div>
+          <div class="row mb-3">
+            <label class="col-sm-2 col-form-label" for="input-geo-zone">{{ entry_geo_zone }}</label>
+            <div class="col-sm-10">
+              <select name="payment_begateway_geo_zone_id" id="input-geo-zone" class="form-select">
+                <option value="0">{{ text_all_zones }}</option>
+                {% for geo_zone in geo_zones %}
+                {% if geo_zone.geo_zone_id == payment_begateway_geo_zone_id %}
+                <option value="{{ geo_zone.geo_zone_id }}" selected="selected">{{ geo_zone.name }}</option>
+                {% else %}
+                <option value="{{ geo_zone.geo_zone_id }}">{{ geo_zone.name }}</option>
+                {% endif %}
+                {% endfor %}
+              </select>
+            </div>
+          </div>
+          <div class="row mb-3">
+            <label class="col-sm-2 col-form-label" for="input-test-mode" data-bs-toggle="tooltip" title="{{ entry_test_mode_help }}">{{ entry_test_mode }}</label>
+            <div class="col-sm-10">
+              <div class="form-check form-switch form-switch-lg">
+                <input type="hidden" name="payment_begateway_test_mode" value="0"/>
+                <input type="checkbox" name="payment_begateway_test_mode" value="1" id="input-test-mode" class="form-check-input"{% if payment_begateway_test_mode %} checked{% endif %}/>
+              </div> 
+            </div>
+          </div>
+          <div class="row mb-3">
+            <label class="col-sm-2 col-form-label" for="input-status">{{ entry_status }}</label>
+            <div class="col-sm-10">
+              <div class="form-check form-switch form-switch-lg">
+                <input type="hidden" name="payment_begateway_status" value="0"/>
+                <input type="checkbox" name="payment_begateway_status" value="1" id="input-status" class="form-check-input"{% if payment_begateway_status %} checked{% endif %}/>
+              </div>  
+            </div>
+          </div>
+          <div class="row mb-3">
+            <label class="col-sm-2 col-form-label" for="input-sort-order">{{ entry_sort_order }}</label>
+            <div class="col-sm-10">
+              <input type="text" name="payment_begateway_sort_order" value="{{ payment_begateway_sort_order }}" placeholder="{{ entry_sort_order }}" id="input-sort-order" class="form-control" />
+            </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+{{ footer }}
+>>>>>>> dc130c1 (init)

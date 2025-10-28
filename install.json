@@ -1,6 +1,15 @@
+<<<<<<< HEAD
 {
     "name": "beGateway Payment",
     "version": "4.0.0",
     "author": "begateway",
     "link": "https://www.begateway.com"
 }
+=======
+{
+    "name": "beGateway Payment",
+    "version": "4.0.0",
+    "author": "begateway",
+    "link": "https://www.begateway.com"
+}
+>>>>>>> dc130c1 (init)
