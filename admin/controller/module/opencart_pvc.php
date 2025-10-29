@@ -55,7 +55,7 @@ class OpencartPvc extends \Opencart\System\Engine\Controller {
                 product_id INT NOT NULL,
                 customer_group_id INT NOT NULL,
                 PRIMARY KEY (product_id, customer_group_id)
-            ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+            ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci");
         ");
     }
 
