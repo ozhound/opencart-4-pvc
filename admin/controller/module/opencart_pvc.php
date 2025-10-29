@@ -21,6 +21,8 @@ class OpencartPvc extends \Opencart\System\Engine\Controller {
 
         /* register catalog events */
         $this->load->model('setting/event');
+        $this->log->write('PVC install() fired');
+
 
         /* store logged-in customer group before controllers run */
         $this->model_setting_event->addEvent(
