@@ -18,6 +18,12 @@ class Pvc extends \Opencart\System\Engine\Controller {
             'catalog/controller/*/before',
             'module/pvc_filter.before'
          );
+        $this->model_setting_event->addEvent(
+            'pvc_product_filter',
+            'catalog/model/catalog/product/getProducts/before',
+            'module/pvc_filter.apply'
+        );
+
 
     }
 
