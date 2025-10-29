@@ -11,14 +11,22 @@ class Pvc extends \Opencart\System\Engine\Controller {
                 PRIMARY KEY (product_id, customer_group_id)
             ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
         ");
+// optional event registration here
+        $this->load->model('setting/event');
+        $this->model_setting_event->addEvent(
+            'pvc_filter',
+            'catalog/controller/*/before',
+            'module/pvc_filter.before'
+         );
 
-        // optional event registration here
     }
 
     public function uninstall(): void {
         $this->db->query("DROP TABLE IF EXISTS `" . DB_PREFIX . "product_customer_group`");
+// optional event unregister
+        $this->load->model('setting/event');
+        $this->model_setting_event->deleteEventByCode('pvc_filter');
 
-        // optional event unregister
     }
 
     public function index(): void {
