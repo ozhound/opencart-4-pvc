@@ -3,7 +3,14 @@ namespace Opencart\Admin\Controller\Module;
 
 class OpencartPvc extends \Opencart\System\Engine\Controller {
 
+    /**
+     * install()
+     * Called when module is installed in admin.
+     * Creates DB table + registers catalog events.
+     */
     public function install(): void {
+
+        /* create mapping table product ↔ customer_group */
         $this->db->query("
             CREATE TABLE IF NOT EXISTS `" . DB_PREFIX . "product_customer_group` (
                 product_id INT NOT NULL,
@@ -11,19 +18,57 @@ class OpencartPvc extends \Opencart\System\Engine\Controller {
                 PRIMARY KEY (product_id, customer_group_id)
             ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
         ");
+
+        /* register catalog events */
+        $this->load->model('setting/event');
+
+        /* store logged-in customer group before controllers run */
+        $this->model_setting_event->addEvent(
+            'pvc_filter_before',                     // internal code
+            'catalog/controller/*/before',          // trigger
+            'module/pvc_filter.before'              // callback route
+        );
+
+        /* constrain product queries by customer group */
+        $this->model_setting_event->addEvent(
+            'pvc_product_filter',
+            'catalog/model/catalog/product/getProducts/before',
+            'module/pvc_filter.apply'
+        );
     }
 
+
+    /**
+     * uninstall()
+     * Called when module is uninstalled in admin.
+     * Drops DB table + unregisters events.
+     */
     public function uninstall(): void {
+
+        /* drop table */
         $this->db->query("DROP TABLE IF EXISTS `" . DB_PREFIX . "product_customer_group`");
+
+        /* unregister events */
+        $this->load->model('setting/event');
+        $this->model_setting_event->deleteEventByCode('pvc_filter_before');
+        $this->model_setting_event->deleteEventByCode('pvc_product_filter');
     }
 
+
+    /**
+     * index()
+     * Minimal stub to satisfy admin module UI routing.
+     */
     public function index(): void {
-        // point to module page
         $this->response->setOutput('PVC module');
     }
 
+
+    /**
+     * save()
+     * Placeholder for admin save logic if needed later.
+     */
     public function save(): void {
-        // placeholder
         $this->response->setOutput('saved');
     }
 }
