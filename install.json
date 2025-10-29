@@ -1,11 +1,13 @@
 {
-  "name": "PVC",
-  "code": "opencart_pvc",
+  "name": "Product Visibility Control (PVC)",
+  "description": "Filter products by customer groups for targeted visibility control",
   "version": "1.0.0",
+  "author": "Your Name",
+  "link": "https://yourwebsite.com",
   "extension": [
     {
       "type": "module",
-      "code": "opencart_pvc"
+      "code": "pvc"
     }
   ]
 }
