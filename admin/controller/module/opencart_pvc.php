@@ -2,21 +2,11 @@
 namespace Opencart\Admin\Controller\Extension\OpencartPvc\Module;
 
 class OpencartPvc extends \Opencart\System\Engine\Controller {
-    public function install(): void {
-        $this->db->query("
-            CREATE TABLE IF NOT EXISTS `" . DB_PREFIX . "product_customer_group` (
-                product_id INT NOT NULL,
-                customer_group_id INT NOT NULL,
-                PRIMARY KEY (product_id, customer_group_id)
-            ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-        ");
-    }
-
-    public function uninstall(): void {
-        $this->db->query("DROP TABLE IF EXISTS `" . DB_PREFIX . "product_customer_group`");
-    }
-
+    
     public function index(): void {
+        // Call install method first time the module is accessed
+        $this->checkAndInstall();
+        
         $this->load->language('extension/opencart_pvc/module/opencart_pvc');
 
         $this->document->setTitle($this->language->get('heading_title'));
@@ -50,6 +40,29 @@ class OpencartPvc extends \Opencart\System\Engine\Controller {
         $this->response->setOutput($this->load->view('extension/opencart_pvc/module/opencart_pvc', $data));
     }
 
+    private function checkAndInstall(): void {
+        // Check if table exists, if not create it
+        $query = $this->db->query("SHOW TABLES LIKE '" . DB_PREFIX . "product_customer_group'");
+        
+        if (!$query->num_rows) {
+            $this->install();
+        }
+    }
+
+    public function install(): void {
+        $this->db->query("
+            CREATE TABLE IF NOT EXISTS `" . DB_PREFIX . "product_customer_group` (
+                product_id INT NOT NULL,
+                customer_group_id INT NOT NULL,
+                PRIMARY KEY (product_id, customer_group_id)
+            ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+        ");
+    }
+
+    public function uninstall(): void {
+        $this->db->query("DROP TABLE IF EXISTS `" . DB_PREFIX . "product_customer_group`");
+    }
+
     public function save(): void {
         $this->load->language('extension/opencart_pvc/module/opencart_pvc');
 
@@ -61,9 +74,7 @@ class OpencartPvc extends \Opencart\System\Engine\Controller {
 
         if (!$json) {
             $this->load->model('setting/setting');
-
             $this->model_setting_setting->editSetting('module_opencart_pvc', $this->request->post);
-
             $json['success'] = $this->language->get('text_success');
         }
 
