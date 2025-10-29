@@ -28,6 +28,12 @@ class OpencartPvc extends \Opencart\System\Engine\Controller {
             'catalog/controller/*/before',          // trigger
             'module/pvc_filter.before'              // callback route
         );
+        $this->model_setting_event->addEvent(
+            'pvc_product_save',
+            'admin/controller/catalog/product.save/before',
+            'module/opencart_pvc.saveGroups'
+        );
+
 
         /* constrain product queries by customer group */
         $this->model_setting_event->addEvent(
@@ -59,6 +65,8 @@ class OpencartPvc extends \Opencart\System\Engine\Controller {
         $this->model_setting_event->deleteEventByCode('pvc_filter_before');
         $this->model_setting_event->deleteEventByCode('pvc_product_filter');
         $this->model_setting_event->deleteEventByCode('pvc_product_form');
+        $this->model_setting_event->deleteEventByCode('pvc_product_save');
+
     }
 
 
