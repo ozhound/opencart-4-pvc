@@ -1,15 +1,13 @@
 {
-  "name": "opencart_pvc",
+  "name": "PVC",
   "code": "opencart_pvc",
   "version": "1.0.0",
   "author": "ozhound",
-  "link": "https://github.com/ozhound/opencart-4-pvc",
   "extension": [
     {
       "type": "module",
+      "vendor": "opencart_pvc",
       "code": "opencart_pvc"
-      "vendor": "opencart_pvc"
     }
   ]
 }
-
