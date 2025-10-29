@@ -3,7 +3,8 @@ namespace Opencart\Catalog\Controller\Module;
 
 class PvcFilter extends \Opencart\System\Engine\Controller {
 
-    // event: catalog/controller/*/before
+    /* event: catalog/controller/*/before
+       stores customer_group_id for later filtering */
     public function before(&$route, &$args): void {
         $gid = 0;
         if ($this->customer->isLogged()) {
@@ -12,19 +13,22 @@ class PvcFilter extends \Opencart\System\Engine\Controller {
         $this->registry->set('pvc_group_id', $gid);
     }
 
-    // event: catalog/model/catalog/product/getProducts/before
+    /* event: catalog/model/catalog/product/getProducts/before
+       appends visibility restriction to product filter */
     public function apply(&$route, &$args): void {
 
-        $gid = $this->registry->get('pvc_group_id') ?? 0;
-        $gid = (int)$gid;
+        $gid = (int)($this->registry->get('pvc_group_id') ?? 0);
 
-        // args[0] = filter array
         if (!isset($args[0]) || !is_array($args[0])) {
             return;
         }
 
-        // add WHERE constraint
-        $constraint = "p.product_id IN (SELECT product_id FROM " . DB_PREFIX . "product_customer_group WHERE customer_group_id = " . $gid . ")";
+        $constraint =
+            "p.product_id IN (
+                SELECT product_id
+                FROM " . DB_PREFIX . "product_customer_group
+                WHERE customer_group_id = " . $gid . "
+            )";
 
         if (!empty($args[0]['filter'])) {
             $args[0]['filter'] .= " AND " . $constraint;
