@@ -35,6 +35,12 @@ class OpencartPvc extends \Opencart\System\Engine\Controller {
             'catalog/model/catalog/product/getProducts/before',
             'module/pvc_filter.apply'
         );
+        $this->model_setting_event->addEvent(
+            'pvc_product_form',
+            'admin/controller/catalog/product.form/after',
+            'module/opencart_pvc.form'
+        );
+
     }
 
 
@@ -52,6 +58,7 @@ class OpencartPvc extends \Opencart\System\Engine\Controller {
         $this->load->model('setting/event');
         $this->model_setting_event->deleteEventByCode('pvc_filter_before');
         $this->model_setting_event->deleteEventByCode('pvc_product_filter');
+        $this->model_setting_event->deleteEventByCode('pvc_product_form');
     }
 
 
