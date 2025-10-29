@@ -77,8 +77,6 @@ class OpencartPvc extends \Opencart\System\Engine\Controller {
      * Minimal stub to satisfy admin module UI routing.
      */
     public function index(): void {
-        $this->install();
-        die('ran');
         $this->response->setOutput('PVC module');
     }
 
