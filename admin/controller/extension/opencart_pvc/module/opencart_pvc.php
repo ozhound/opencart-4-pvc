@@ -5,7 +5,7 @@ class OpencartPvc extends \Opencart\System\Engine\Controller {
 
     /* install(): create DB table only */
     public function install(): void {
-
+        $this->log->write('PVC install fired');
         $this->db->query("
             CREATE TABLE IF NOT EXISTS `" . DB_PREFIX . "product_customer_group` (
                 product_id INT NOT NULL,
