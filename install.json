@@ -2,11 +2,9 @@
   "name": "PVC",
   "code": "opencart_pvc",
   "version": "1.0.0",
-  "author": "ozhound",
   "extension": [
     {
       "type": "module",
-      "vendor": "opencart_pvc",
       "code": "opencart_pvc"
     }
   ]
