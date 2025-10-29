@@ -1,5 +1,5 @@
 <?php
-namespace Opencart\Admin\Controller\Module;
+namespace Opencart\Admin\Controller\Extension\OpencartPvc\Module;
 
 class OpencartPvc extends \Opencart\System\Engine\Controller {
 
