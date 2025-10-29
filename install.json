@@ -1,15 +1,13 @@
-<<<<<<< HEAD
 {
-    "name": "beGateway Payment",
-    "version": "4.0.0",
-    "author": "begateway",
-    "link": "https://www.begateway.com"
+  "name": "opencart_pvc",
+  "code": "opencart_pvc",
+  "version": "1.0.0",
+  "author": "ozhound",
+  "link": "https://github.com/ozhound/opencart-4-pvc",
+  "extension": [
+    {
+      "type": "module",
+      "code": "opencart_pvc"
+    }
+  ]
 }
-=======
-{
-    "name": "beGateway Payment",
-    "version": "4.0.0",
-    "author": "begateway",
-    "link": "https://www.begateway.com"
-}
->>>>>>> dc130c1 (init)
