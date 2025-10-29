@@ -8,6 +8,8 @@
     {
       "type": "module",
       "code": "opencart_pvc"
+      "vendor": "opencart_pvc"
     }
   ]
 }
+
