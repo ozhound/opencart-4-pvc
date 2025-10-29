@@ -1,1 +1,3 @@
+<?php
+// no strings required
 
